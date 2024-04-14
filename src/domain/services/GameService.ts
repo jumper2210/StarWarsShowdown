@@ -1,30 +1,28 @@
-import { People } from "../models/People";
+import { Character } from "../models/Character";
 import { Starship } from "../models/Starship";
 
 export class GameService {
-  static comparePersonAttributes(
-    leftPlayerPeople: People,
-    rightPlayerPeople: People
-  ): People {
-    const leftMass = parseFloat(leftPlayerPeople.mass);
-    const rightMass = parseFloat(rightPlayerPeople.mass);
+  public compareCharacterAttributes(
+    leftPlayersCharacter: Character,
+    rightPlayersCharacter: Character
+  ): Character {
+    const leftMass = parseFloat(leftPlayersCharacter.mass);
+    const rightMass = parseFloat(rightPlayersCharacter.mass);
 
-    // Compare masses and return the person with the greater mass
     if (leftMass > rightMass) {
-      return leftPlayerPeople;
+      return leftPlayersCharacter;
     } else {
-      return rightPlayerPeople;
+      return rightPlayersCharacter;
     }
   }
 
-  static compareStarshipAttributes(
+  public compareStarshipAttributes(
     leftPlayerStarship: Starship,
     rightPlayerStarship: Starship
   ): Starship {
     const leftCrew = parseInt(leftPlayerStarship.crew);
     const rightCrew = parseInt(rightPlayerStarship.crew);
 
-    // Compare crew sizes and return the starship with the larger crew
     if (leftCrew > rightCrew) {
       return leftPlayerStarship;
     } else {

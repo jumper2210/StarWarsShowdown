@@ -1,7 +1,7 @@
 import { Starship } from "../models/Starship";
 import _ from "lodash";
 
-export default class StarshipRepository {
+export class StarshipRepository {
   public async getRandomStarship(): Promise<Starship | null> {
     try {
       const randomId = _.random(1, 41);
