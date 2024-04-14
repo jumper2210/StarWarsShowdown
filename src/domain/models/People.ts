@@ -1,4 +1,4 @@
-export interface Person {
+export interface People {
   height: string;
   mass: string;
   hairColor: string;
