@@ -12,4 +12,23 @@ export class Starship {
   cargoCapacity: string;
   consumables: string;
   name: string;
+  created: string;
+  edited: string;
+  url: string;
 }
+
+export type StarshipProperties = Pick<
+  Starship,
+  | "name"
+  | "model"
+  | "starshipClass"
+  | "manufacturer"
+  | "costInCredits"
+  | "length"
+  | "crew"
+  | "passengers"
+  | "maxAtmospheringSpeed"
+  | "cargoCapacity"
+  | "consumables"
+  | "hyperdriveRating"
+>;

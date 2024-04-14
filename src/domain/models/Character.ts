@@ -10,3 +10,15 @@ export interface Character {
   homeworld: string;
   url: string;
 }
+
+export type CharacterProperties = Pick<
+  Character,
+  | "name"
+  | "height"
+  | "mass"
+  | "hairColor"
+  | "skinColor"
+  | "eyeColor"
+  | "birthYear"
+  | "homeworld"
+>;
