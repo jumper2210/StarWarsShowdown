@@ -4,7 +4,7 @@ import _ from "lodash";
 export class StarshipRepository {
   public async getRandomStarship(): Promise<Starship | null> {
     try {
-      const randomId = _.random(1, 41);
+      const randomId = _.random(9, 41);
       const response = await fetch(
         `https://www.swapi.tech/api/starships/${randomId}`
       );
