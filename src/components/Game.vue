@@ -1,9 +1,15 @@
 <template>
   <v-container fill-height>
     <v-row align="center" justify="center">
-      <v-col class="text-center">
+      <v-col cols="6" class="d-flex justify-center">
         <Card :cardDetails="leftCard" />
+      </v-col>
+      <v-col cols="6" class="d-flex justify-center">
         <Card :cardDetails="rightCard" />
+      </v-col>
+    </v-row>
+    <v-row align="center" justify="center">
+      <v-col class="text-center">
         <v-btn @click="playGame">Play Game</v-btn>
       </v-col>
     </v-row>

@@ -1,9 +1,21 @@
 <template>
-  <v-card v-if="cardDetails" ma="10" pa="10">
-    <v-card-title>{{ header }}</v-card-title>
+  <v-card
+    align="center"
+    justify="center"
+    v-if="cardDetails"
+    class="hide-scrollbar card"
+  >
+    <v-card-title :style="{ color: '#eedb00', marginBottom: '10px' }">{{
+      header
+    }}</v-card-title>
     <v-card-text>
       <v-row>
-        <v-col cols="6" v-for="(value, key) in cardDetails" :key="key">
+        <v-col
+          class="text-start"
+          cols="12"
+          v-for="(value, key) in cardDetails"
+          :key="key"
+        >
           <strong>{{ formatKey(key) }}:</strong> {{ formatValue(value) }}
         </v-col>
       </v-row>
@@ -40,4 +52,23 @@ const formatValue = (value: string | number): string => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.card {
+  max-height: 300px;
+  width: 350px;
+  overflow-y: auto;
+  box-shadow: rgba(0, 0, 0, 0.51) 0px -1px 26px 10px;
+  border-radius: 35px;
+  background-color: #15142a;
+  color: white;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+</style>

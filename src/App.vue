@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app style="background-color: #15142a">
     <v-main>
       <Game :resources="resources"></Game>
     </v-main>
