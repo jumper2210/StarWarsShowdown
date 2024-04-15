@@ -1,5 +1,5 @@
 <template>
-  <v-card ma="10" pa="10">
+  <v-card v-if="cardDetails" ma="10" pa="10">
     <v-card-title>{{ header }}</v-card-title>
     <v-card-text>
       <v-row>
