@@ -1,15 +1,19 @@
 <template>
-  <div>
-    <Card :cardDetails="leftCard" />
-    <Card :cardDetails="rightCard" />
-    <v-btn @click="playGame">Play Game</v-btn>
-  </div>
+  <v-container fill-height>
+    <v-row align="center" justify="center">
+      <v-col class="text-center">
+        <Card :cardDetails="leftCard" />
+        <Card :cardDetails="rightCard" />
+        <v-btn @click="playGame">Play Game</v-btn>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts" setup>
 import { ref, inject, Ref } from "vue";
-import { StarshipProperties } from "@/domain/models/Starship";
-import { CharacterProperties } from "@/domain/models/Character";
+import { Starship } from "@/domain/models/Starship";
+import { Character } from "@/domain/models/Character";
 import { Resources } from "@/domain/models/Resources";
 import { CharacterRepository } from "@/domain/repositories/CharacterRepository";
 import { StarshipRepository } from "@/domain/repositories/StarshipRepository";
@@ -20,12 +24,8 @@ const props = defineProps<{
   resources: Resources;
 }>();
 
-const leftCard = ref(null) as Ref<
-  StarshipProperties | CharacterProperties | null
->;
-const rightCard = ref(null) as Ref<
-  StarshipProperties | CharacterProperties | null
->;
+const leftCard = ref(null) as Ref<Starship | Character | null>;
+const rightCard = ref(null) as Ref<Starship | Character | null>;
 const characterRepository = inject<CharacterRepository>("CharacterRepository");
 const starshipRepository = inject<StarshipRepository>("StarshipRepository");
 const gameService = new GameService();

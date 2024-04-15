@@ -1,3 +1,16 @@
+export class StarshipDto {
+  model: string;
+  starship_class: string;
+  manufacturer: string;
+  cost_in_credits: string;
+  length: string;
+  crew: string;
+  passengers: string;
+  max_atmosphering_speed: string;
+  hyperdrive_rating: string;
+  name: string;
+}
+
 export class Starship {
   model: string;
   starshipClass: string;
@@ -8,27 +21,5 @@ export class Starship {
   passengers: string;
   maxAtmospheringSpeed: string;
   hyperdriveRating: string;
-  MGLT: string;
-  cargoCapacity: string;
-  consumables: string;
   name: string;
-  created: string;
-  edited: string;
-  url: string;
 }
-
-export type StarshipProperties = Pick<
-  Starship,
-  | "name"
-  | "model"
-  | "starshipClass"
-  | "manufacturer"
-  | "costInCredits"
-  | "length"
-  | "crew"
-  | "passengers"
-  | "maxAtmospheringSpeed"
-  | "cargoCapacity"
-  | "consumables"
-  | "hyperdriveRating"
->;

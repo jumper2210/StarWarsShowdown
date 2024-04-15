@@ -1,3 +1,14 @@
+export interface CharacterDto {
+  height: string;
+  mass: string;
+  hair_color: string;
+  skin_color: string;
+  eye_color: string;
+  birth_year: string;
+  gender: string;
+  name: string;
+}
+
 export interface Character {
   height: string;
   mass: string;
@@ -7,18 +18,4 @@ export interface Character {
   birthYear: string;
   gender: string;
   name: string;
-  homeworld: string;
-  url: string;
 }
-
-export type CharacterProperties = Pick<
-  Character,
-  | "name"
-  | "height"
-  | "mass"
-  | "hairColor"
-  | "skinColor"
-  | "eyeColor"
-  | "birthYear"
-  | "homeworld"
->;

@@ -12,13 +12,13 @@
 </template>
 
 <script setup lang="ts">
-import { StarshipProperties } from "@/domain/models/Starship";
-import { CharacterProperties } from "@/domain/models/Character";
+import { Starship } from "@/domain/models/Starship";
+import { Character } from "@/domain/models/Character";
 import { PropType, computed } from "vue";
 
 const props = defineProps({
   cardDetails: {
-    type: Object as PropType<StarshipProperties | CharacterProperties>,
+    type: Object as PropType<Starship | Character>,
     required: true,
   },
 });
@@ -29,7 +29,10 @@ const header = computed(() => {
 });
 
 const formatKey = (key: string): string => {
-  return key.replace(/([A-Z])/g, " $1").trim();
+  return key
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .toLowerCase()
+    .trim();
 };
 
 const formatValue = (value: string | number): string => {

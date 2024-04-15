@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <Game :resources="character"></Game>
+      <Game :resources="resources"></Game>
     </v-main>
   </v-app>
 </template>
@@ -10,5 +10,5 @@
 import { Resources } from "@/domain/models/Resources";
 import Game from "@/components/Game.vue";
 
-const character = Resources.Character;
+const resources = Resources.Starship;
 </script>
