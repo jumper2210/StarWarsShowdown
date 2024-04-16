@@ -8,6 +8,7 @@
     <v-card-title :style="{ color: '#eedb00', marginBottom: '10px' }">{{
       header
     }}</v-card-title>
+    <v-img :src="photo" width="50%" aspect-ratio="1.7"></v-img>
     <v-card-text>
       <v-row>
         <v-col
@@ -31,6 +32,10 @@ import { PropType, computed } from "vue";
 const props = defineProps({
   cardDetails: {
     type: Object as PropType<Starship | Character>,
+    required: true,
+  },
+  photo: {
+    type: String,
     required: true,
   },
 });
@@ -58,7 +63,7 @@ const formatValue = (value: string | number): string => {
   width: 350px;
   overflow-y: auto;
   box-shadow: rgba(0, 0, 0, 0.51) 0px -1px 26px 10px;
-  border-radius: 35px;
+  border-radius: 20px;
   background-color: #15142a;
   color: white;
 }
