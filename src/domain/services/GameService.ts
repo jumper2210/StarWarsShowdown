@@ -1,11 +1,11 @@
-import { CharacterProperties } from "../models/Character";
-import { StarshipProperties } from "../models/Starship";
+import { Character } from "../models/Character";
+import { Starship } from "../models/Starship";
 
 export class GameService {
   public compareCharacterAttributes(
-    leftPlayersCharacter: CharacterProperties,
-    rightPlayersCharacter: CharacterProperties
-  ): CharacterProperties {
+    leftPlayersCharacter: Character,
+    rightPlayersCharacter: Character
+  ): Character {
     const leftMass = parseFloat(leftPlayersCharacter.mass);
     const rightMass = parseFloat(rightPlayersCharacter.mass);
 
@@ -17,9 +17,9 @@ export class GameService {
   }
 
   public compareStarshipAttributes(
-    leftPlayerStarship: StarshipProperties,
-    rightPlayerStarship: StarshipProperties
-  ): StarshipProperties {
+    leftPlayerStarship: Starship,
+    rightPlayerStarship: Starship
+  ): Starship {
     const leftCrew = parseInt(leftPlayerStarship.crew);
     const rightCrew = parseInt(rightPlayerStarship.crew);
 
