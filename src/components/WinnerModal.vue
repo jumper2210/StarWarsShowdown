@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="isOpen" max-width="60%">
+  <v-dialog v-model="isOpen" max-width="70%">
     <v-card>
       <v-card-title
         style="background-color: #15142a; color: white; padding: 30px"
@@ -44,26 +44,21 @@ const isOpen = ref(false) as Ref<boolean>;
 const props = defineProps({
   isWinnerDialogOpen: {
     type: Object as PropType<boolean>,
-    required: true,
   },
   title: {
     type: Object as PropType<String>,
-    required: true,
   },
   photo: {
     type: Object as PropType<string>,
-    required: true,
   },
   cardDetails: {
     type: Object as PropType<Starship | Character | null>,
-    required: true,
   },
 });
 
 watch(
   () => props.isWinnerDialogOpen,
   (newVal, oldVal) => {
-    console.log("here?");
     isOpen.value = newVal;
   }
 );

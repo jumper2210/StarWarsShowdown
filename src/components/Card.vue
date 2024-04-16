@@ -32,11 +32,9 @@ import { PropType, computed } from "vue";
 const props = defineProps({
   cardDetails: {
     type: Object as PropType<Starship | Character>,
-    required: true,
   },
   photo: {
     type: String,
-    required: true,
   },
 });
 
