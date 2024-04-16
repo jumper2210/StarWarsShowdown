@@ -8,7 +8,7 @@
       >
       <v-container style="background-color: #15142a">
         <v-row class="fill-height" align="center" justify="center">
-          <v-col class="d-flex" cols="12" sm="8" md="6">
+          <v-col class="d-flex justify-center" cols="12" sm="8" md="6">
             <Card :cardDetails="cardDetails" :photo="photo" />
           </v-col>
         </v-row>

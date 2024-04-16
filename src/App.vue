@@ -29,9 +29,8 @@ import { ref, Ref } from "vue";
 import { Resources } from "@/domain/models/Resources";
 import Game from "@/components/Game.vue";
 
-const resources = ref(null) as Ref<Resources | null>;
 const dialog = ref(true);
-const selectedResource = ref(null) as Ref<Resources | null>;
+const selectedResource = ref(Resources.Character) as Ref<Resources | null>;
 const resourceOptions = ref([Resources.Character, Resources.Starship]);
 
 const onClick = () => {

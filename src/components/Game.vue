@@ -1,17 +1,25 @@
 <template>
   <v-container class="d-flex flex-column align-center" style="height: 80vh">
     <v-container class="d-flex flex-row align-center justify-space-evenly">
-      <v-card class="mb-1">
-        <v-card-title>Left Player Score: {{ leftPlayerScore }}</v-card-title>
-      </v-card>
-      <v-card class="mb-1">
-        <v-card-title
-          >Right Player Score: {{ rightPlayerRightScore }}</v-card-title
-        >
-      </v-card>
+      <v-row align="center" justify="space-evenly">
+        <v-col cols="12" sm="3">
+          <v-card class="mb-1">
+            <v-card-title
+              >Left Player Score: {{ leftPlayerScore }}</v-card-title
+            >
+          </v-card>
+        </v-col>
+        <v-col cols="12" sm="3">
+          <v-card class="mb-1">
+            <v-card-title
+              >Right Player Score: {{ rightPlayerRightScore }}</v-card-title
+            >
+          </v-card>
+        </v-col>
+      </v-row>
     </v-container>
     <v-row align="center" justify="center" class="d-flex" style="width: 100%">
-      <v-col cols="6" class="d-flex justify-center">
+      <v-col cols="12" md="5" class="d-flex justify-center">
         <div style="height: 300px">
           <Card
             v-if="!isLoaded"
@@ -20,7 +28,7 @@
           />
         </div>
       </v-col>
-      <v-col cols="6" class="d-flex justify-center">
+      <v-col cols="12" md="5" class="d-flex justify-center">
         <Card
           v-if="!isLoaded"
           :cardDetails="rightCard"
@@ -41,6 +49,14 @@
       </v-col>
     </v-row>
   </v-container>
+  <WinnerModal
+    :isWinnerDialogOpen="isWinnerDialogOpen"
+    :title="winnerTitle"
+    :cardDetails="winnerCard"
+    :photo="resourcesPhoto"
+    @onClose="onClose"
+    @onTryAgain="onTryAgain"
+  ></WinnerModal>
   <WinnerModal
     :isWinnerDialogOpen="isWinnerDialogOpen"
     :title="winnerTitle"
