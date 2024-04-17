@@ -25,7 +25,7 @@
     class="d-flex mb-5"
     style="width: 100%"
   >
-    <v-col cols="12" md="5" class="d-flex justify-center">
+    <v-col cols="12" md="5" class="d-flex justify-center pl-6">
       <div style="height: 300px">
         <Card
           v-if="!isLoaded"
@@ -34,7 +34,7 @@
         />
       </div>
     </v-col>
-    <v-col cols="12" md="5" class="d-flex justify-center">
+    <v-col cols="12" md="5" class="d-flex justify-center pl-6">
       <Card v-if="!isLoaded" :cardDetails="rightCard" :photo="resourcesPhoto" />
     </v-col>
   </v-row>
@@ -45,11 +45,11 @@
       color="primary"
     ></v-progress-circular>
   </v-row>
-  <v-row align="center" justify="center">
+  <v-container>
     <v-col class="text-center">
       <v-btn @click="playGame">Play Game</v-btn>
     </v-col>
-  </v-row>
+  </v-container>
   <WinnerModal
     :isWinnerDialogOpen="isWinnerDialogOpen"
     :title="winnerTitle"

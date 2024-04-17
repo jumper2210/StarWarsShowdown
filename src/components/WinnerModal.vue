@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="isOpen" :persistent="true" max-width="70%">
+  <v-dialog v-model="isOpen" :persistent="true">
     <v-card>
       <v-card-title
         style="background-color: #15142a; color: white; padding: 30px"

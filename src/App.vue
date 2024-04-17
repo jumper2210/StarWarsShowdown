@@ -2,7 +2,7 @@
   <v-app style="background-color: #15142a; overflow: auto">
     <v-main style="height: 100vh">
       <Game :resources="selectedResource"></Game>
-      <v-dialog v-model="dialog" max-width="50%">
+      <v-dialog v-model="dialog">
         <v-card>
           <v-card-title class="headline text-center"
             >Select Resource and may the force be with you!</v-card-title
