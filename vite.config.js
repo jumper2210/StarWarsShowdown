@@ -1,8 +1,8 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vuetify from 'vite-plugin-vuetify'
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import vuetify from "vite-plugin-vuetify";
 
-const path = require('path')
+const path = require("path");
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,10 +13,15 @@ export default defineConfig({
       autoImport: true,
     }),
   ],
-  define: { 'process.env': {} },
+  define: {
+    "process.env": {},
+    __VUE_OPTIONS_API__: true,
+    __VUE_PROD_DEVTOOLS__: false,
+    __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: true,
+  },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
+      "@": path.resolve(__dirname, "src"),
     },
   },
   /* remove the need to specify .vue files https://vitejs.dev/config/#resolve-extensions
@@ -32,4 +37,4 @@ export default defineConfig({
     ]
   },
   */
-})
+});

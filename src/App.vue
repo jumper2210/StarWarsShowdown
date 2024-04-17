@@ -31,7 +31,9 @@ import Game from "@/components/Game.vue";
 
 const dialog = ref(true);
 const selectedResource = ref(Resources.Character) as Ref<Resources | null>;
-const resourceOptions = ref([Resources.Character, Resources.Starship]);
+const resourceOptions = ref([Resources.Character, Resources.Starship]) as Ref<
+  Resources[]
+>;
 
 const onClick = () => {
   dialog.value = false;

@@ -61,7 +61,7 @@
     :isWinnerDialogOpen="isWinnerDialogOpen"
     :title="winnerTitle"
     :cardDetails="winnerCard"
-    :photo="resourcesPhoto"
+    :photo-url="resourcesPhoto"
     @onClose="onClose"
     @onTryAgain="onTryAgain"
   ></WinnerModal>
@@ -81,7 +81,7 @@ import { RoundResult } from "../domain/models/RoundResult";
 
 const props = defineProps({
   resources: {
-    type: Object as PropType<Resources | null>,
+    type: String as PropType<string | null>,
   },
 });
 

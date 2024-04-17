@@ -9,7 +9,7 @@
       <v-container style="background-color: #15142a">
         <v-row class="fill-height" align="center" justify="center">
           <v-col class="d-flex justify-center" cols="12" sm="8" md="6">
-            <Card :cardDetails="cardDetails" :photo="photo" />
+            <Card :cardDetails="cardDetails" :photo="photoUrl" />
           </v-col>
         </v-row>
       </v-container>
@@ -43,13 +43,13 @@ const isOpen = ref(false) as Ref<boolean>;
 
 const props = defineProps({
   isWinnerDialogOpen: {
-    type: Object as PropType<boolean>,
+    type: Boolean as PropType<boolean>,
   },
   title: {
-    type: Object as PropType<String>,
+    type: String as PropType<String>,
   },
-  photo: {
-    type: Object as PropType<string>,
+  photoUrl: {
+    type: String as PropType<string>,
   },
   cardDetails: {
     type: Object as PropType<Starship | Character | null>,
