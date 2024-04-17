@@ -4,7 +4,7 @@
       <Game :resources="selectedResource"></Game>
       <v-dialog v-model="dialog">
         <v-card>
-          <v-card-title class="headline text-center"
+          <v-card-title class="headline text-center text-wrap"
             >Select Resource and may the force be with you!</v-card-title
           >
           <v-card-text>
