@@ -45,11 +45,11 @@
       color="primary"
     ></v-progress-circular>
   </v-row>
-  <v-container>
+  <v-row>
     <v-col class="text-center">
       <v-btn @click="playGame">Play Game</v-btn>
     </v-col>
-  </v-container>
+  </v-row>
   <WinnerModal
     :isWinnerDialogOpen="isWinnerDialogOpen"
     :title="winnerTitle"
