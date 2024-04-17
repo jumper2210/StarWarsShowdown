@@ -1,62 +1,55 @@
 <template>
-  <v-container class="d-flex flex-column align-center" style="height: 80vh">
-    <v-container class="d-flex flex-row align-center justify-space-evenly">
-      <v-row align="center" justify="space-evenly">
-        <v-col cols="12" sm="3">
-          <v-card class="mb-1">
-            <v-card-title
-              >Left Player Score: {{ leftPlayerScore }}</v-card-title
-            >
-          </v-card>
-        </v-col>
-        <v-col cols="12" sm="3">
-          <v-card class="mb-1">
-            <v-card-title
-              >Right Player Score: {{ rightPlayerRightScore }}</v-card-title
-            >
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
-    <v-row align="center" justify="center" class="d-flex" style="width: 100%">
-      <v-col cols="12" md="5" class="d-flex justify-center">
-        <div style="height: 300px">
-          <Card
-            v-if="!isLoaded"
-            :cardDetails="leftCard"
-            :photo="resourcesPhoto"
-          />
-        </div>
+  <v-container class="d-flex flex-row align-center justify-space-evenly mb-7">
+    <v-row align="center" justify="space-evenly">
+      <v-col cols="12" sm="5" xs="6">
+        <v-container
+          class="mb-1"
+          style="color: #eedb00; background-color: #15142a; text-align: center"
+        >
+          Left Player Score: {{ leftPlayerScore }}
+        </v-container>
       </v-col>
-      <v-col cols="12" md="5" class="d-flex justify-center">
-        <Card
-          v-if="!isLoaded"
-          :cardDetails="rightCard"
-          :photo="resourcesPhoto"
-        />
-      </v-col>
-    </v-row>
-    <v-row align="center" justify="center">
-      <v-progress-circular
-        v-if="isLoaded"
-        indeterminate
-        color="primary"
-      ></v-progress-circular>
-    </v-row>
-    <v-row align="center" justify="center">
-      <v-col class="text-center">
-        <v-btn @click="playGame">Play Game</v-btn>
+      <v-col cols="12" sm="5">
+        <v-container
+          class="mb-1"
+          style="color: #eedb00; background-color: #15142a; text-align: center"
+        >
+          Right Player Score: {{ rightPlayerRightScore }}
+        </v-container>
       </v-col>
     </v-row>
   </v-container>
-  <WinnerModal
-    :isWinnerDialogOpen="isWinnerDialogOpen"
-    :title="winnerTitle"
-    :cardDetails="winnerCard"
-    :photo="resourcesPhoto"
-    @onClose="onClose"
-    @onTryAgain="onTryAgain"
-  ></WinnerModal>
+  <v-row
+    align="center"
+    justify="center"
+    class="d-flex mb-5"
+    style="width: 100%"
+  >
+    <v-col cols="12" md="5" class="d-flex justify-center">
+      <div style="height: 300px">
+        <Card
+          v-if="!isLoaded"
+          :cardDetails="leftCard"
+          :photo="resourcesPhoto"
+        />
+      </div>
+    </v-col>
+    <v-col cols="12" md="5" class="d-flex justify-center">
+      <Card v-if="!isLoaded" :cardDetails="rightCard" :photo="resourcesPhoto" />
+    </v-col>
+  </v-row>
+  <v-row align="center" justify="center">
+    <v-progress-circular
+      v-if="isLoaded"
+      indeterminate
+      color="primary"
+    ></v-progress-circular>
+  </v-row>
+  <v-row align="center" justify="center">
+    <v-col class="text-center">
+      <v-btn @click="playGame">Play Game</v-btn>
+    </v-col>
+  </v-row>
   <WinnerModal
     :isWinnerDialogOpen="isWinnerDialogOpen"
     :title="winnerTitle"
@@ -112,7 +105,6 @@ const resourcesPhoto = computed(() => {
 });
 
 const onClose = (value: boolean) => {
-  resetGame();
   isWinnerDialogOpen.value = value;
 };
 
