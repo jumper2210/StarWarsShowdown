@@ -25,8 +25,12 @@
       </v-container>
       <v-card-actions style="background-color: #15142a">
         <v-spacer></v-spacer>
-        <v-btn color="white" @click="close"> Close </v-btn>
-        <v-btn color="#eedb00" @click="tryAgain"> Try again </v-btn>
+        <v-btn data-testid="close-btn" color="white" @click="close">
+          Close
+        </v-btn>
+        <v-btn data-testid="try-again-btn" color="#eedb00" @click="tryAgain">
+          Try again
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -69,6 +73,7 @@ const props = defineProps({
 watch(
   () => props.isWinnerDialogOpen,
   (newVal, oldVal) => {
+    console.log("props.isWinnerDialogOpen", props.isWinnerDialogOpen);
     isOpen.value = newVal;
   }
 );
