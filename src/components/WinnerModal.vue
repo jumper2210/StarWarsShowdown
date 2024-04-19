@@ -1,15 +1,25 @@
 <template>
-  <v-dialog v-model="isOpen" :persistent="true" maxWidth="60%">
+  <v-dialog
+    data-testid="winner-dialog"
+    v-model="isOpen"
+    :persistent="true"
+    maxWidth="60%"
+  >
     <v-card>
       <v-card-title
         style="background-color: #15142a; color: white; padding: 30px"
         class="headline text-center"
+        data-testid="card-title"
         >{{ title }}</v-card-title
       >
       <v-container style="background-color: #15142a">
         <v-row class="fill-height" align="center" justify="center">
           <v-col class="d-flex justify-center" cols="12" sm="8" md="6">
-            <Card :cardDetails="cardDetails" :photo="photoUrl" />
+            <Card
+              data-testid="card-details"
+              :cardDetails="cardDetails"
+              :photo="photoUrl"
+            />
           </v-col>
         </v-row>
       </v-container>
