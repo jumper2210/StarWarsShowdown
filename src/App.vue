@@ -2,13 +2,14 @@
   <v-app style="background-color: #15142a; overflow: auto">
     <v-main style="height: 100vh">
       <Game :resources="selectedResource"></Game>
-      <v-dialog v-model="dialog">
+      <v-dialog data-testid="dialog-resources" v-model="dialog">
         <v-card>
           <v-card-title class="headline text-center text-wrap"
             >Select Resource and may the force be with you!</v-card-title
           >
           <v-card-text>
             <v-select
+              data-testid="resources"
               :items="resourceOptions"
               label="Resources"
               v-model="selectedResource"
@@ -16,7 +17,9 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="black" @click="onClick">Start</v-btn>
+            <v-btn data-testid="start-btn" color="black" @click="onClick"
+              >Start</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-dialog>
