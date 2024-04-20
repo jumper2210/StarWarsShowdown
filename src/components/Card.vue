@@ -4,6 +4,7 @@
     justify="center"
     v-if="cardDetails"
     class="hide-scrollbar card"
+    :style="{ 'max-height': heightOfCard }"
   >
     <v-card-title :style="{ color: '#eedb00', marginBottom: '10px' }">{{
       header
@@ -28,6 +29,7 @@
 import { Starship } from "@/domain/models/Starship";
 import { Character } from "@/domain/models/Character";
 import { PropType, computed } from "vue";
+import { useDisplay } from "vuetify";
 
 const props = defineProps({
   cardDetails: {
@@ -36,6 +38,12 @@ const props = defineProps({
   photo: {
     type: String,
   },
+});
+
+const { width } = useDisplay();
+
+const heightOfCard = computed(() => {
+  return width.value < 600 ? "200px" : "300px";
 });
 
 const header = computed(() => {
@@ -57,7 +65,7 @@ const formatValue = (value: string | number): string => {
 
 <style scoped>
 .card {
-  max-height: 300px;
+  max-height: 170px;
   width: 350px;
   overflow-y: auto;
   box-shadow: rgba(0, 0, 0, 0.51) 0px -1px 26px 10px;

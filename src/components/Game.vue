@@ -4,8 +4,8 @@
     class="d-flex flex-column align-center justify-space-evenly"
     style="height: 100%"
   >
-    <v-row style="width: 100%; height: 10%" align="center" dense>
-      <v-col cols="12" md="6">
+    <v-row style="width: 100%" align="center" dense>
+      <v-col cols="12" sm="6">
         <v-container
           class="mb-1"
           style="color: #eedb00; background-color: #15142a; text-align: center"
@@ -13,7 +13,7 @@
           Left Player Score: {{ leftPlayerScore }}
         </v-container>
       </v-col>
-      <v-col>
+      <v-col cols="12" sm="6">
         <v-container
           class="mb-1"
           style="color: #eedb00; background-color: #15142a; text-align: center"
@@ -29,7 +29,7 @@
       class="d-flex mb-5"
       style="width: 100%; height: 80%"
     >
-      <v-col cols="12" md="5" class="d-flex justify-center pl-6">
+      <v-col cols="12" sm="6" class="d-flex justify-center pl-6">
         <Card
           data-testid="left-card"
           v-if="!isLoaded"
@@ -37,7 +37,7 @@
           :photo="resourcesPhoto"
         />
       </v-col>
-      <v-col cols="12" md="5" class="d-flex justify-center pl-6">
+      <v-col cols="12" sm="6" class="d-flex justify-center pl-6">
         <Card
           data-testid="right-card"
           v-if="!isLoaded"
