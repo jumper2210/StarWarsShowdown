@@ -30,16 +30,16 @@
       style="width: 100%; height: 80%"
     >
       <v-col cols="12" md="5" class="d-flex justify-center pl-6">
-        <div style="height: 300px">
-          <Card
-            v-if="!isLoaded"
-            :cardDetails="leftCard"
-            :photo="resourcesPhoto"
-          />
-        </div>
+        <Card
+          data-testid="left-card"
+          v-if="!isLoaded"
+          :cardDetails="leftCard"
+          :photo="resourcesPhoto"
+        />
       </v-col>
       <v-col cols="12" md="5" class="d-flex justify-center pl-6">
         <Card
+          data-testid="right-card"
           v-if="!isLoaded"
           :cardDetails="rightCard"
           :photo="resourcesPhoto"
@@ -55,11 +55,12 @@
       </template>
       <template v-else>
         <v-col class="text-center mb-4">
-          <v-btn @click="playGame">Play Game</v-btn>
+          <v-btn data-testid="play-btn" @click="playGame">Play Game</v-btn>
         </v-col>
       </template>
     </v-row>
     <WinnerModal
+      data-testid="winner-modal"
       :isWinnerDialogOpen="isWinnerDialogOpen"
       :title="winnerTitle"
       :cardDetails="winnerCard"
@@ -179,7 +180,6 @@ const characterResourcesGame = async () => {
     leftCharacterCard.value,
     rightCharacterCard.value
   );
-
   winnerCard.value = characterCardWinner.value.cardDetails;
   winnerTitle.value = `Winner is ${characterCardWinner.value.winner}`;
 

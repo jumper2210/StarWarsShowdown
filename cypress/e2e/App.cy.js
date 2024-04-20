@@ -3,18 +3,30 @@ describe("Game Setup", () => {
     cy.visit("/");
   });
 
-  it("should open the dialog", () => {
-    cy.get('[data-testid="dialog-resources"]').should("be.visible");
-  });
+  it("should simulate one game round", () => {
+    cy.intercept("GET", "https://www.swapi.tech/api/starships/*").as(
+      "getStarship"
+    );
 
-  it("should select a resource", () => {
+    cy.get('[data-testid="dialog-resources"]').should("be.visible");
     cy.get('[data-testid="resources"]').click();
     cy.get(".v-list-item").contains("Starship").click();
     cy.get('[data-testid="resources"]').should("contain", "Starship");
-  });
-
-  it("should close the dialog when start is clicked", () => {
     cy.get('[data-testid="start-btn"]').contains("Start").click();
-    cy.get('[data-testid="dialog-resources"]').should("not.exist");
+    cy.get('[data-testid="play-btn"]').click();
+
+    cy.wait("@getStarship", { timeout: 10000 })
+      .its("request.method")
+      .should("equal", "GET")
+      .then(() => {
+        cy.wait("@getStarship", { timeout: 10000 })
+          .its("request.method")
+          .should("equal", "GET");
+      });
+
+    cy.get('[data-testid="left-card"]').should("be.visible");
+    cy.get('[data-testid="right-card"]').should("be.visible");
+    cy.wait(1500);
+    cy.get('[data-testid="winner-modal"]').should("be.visible");
   });
 });
