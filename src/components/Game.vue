@@ -1,7 +1,11 @@
 <template>
-  <v-container class="d-flex flex-row align-center justify-space-evenly mb-7">
-    <v-row align="center" justify="space-evenly">
-      <v-col cols="12" sm="5" xs="6">
+  <v-container
+    fill-height
+    class="d-flex flex-column align-center justify-space-evenly"
+    style="height: 100%"
+  >
+    <v-row style="width: 100%; height: 10%" align="center" dense>
+      <v-col cols="12" md="6">
         <v-container
           class="mb-1"
           style="color: #eedb00; background-color: #15142a; text-align: center"
@@ -9,7 +13,7 @@
           Left Player Score: {{ leftPlayerScore }}
         </v-container>
       </v-col>
-      <v-col cols="12" sm="5">
+      <v-col>
         <v-container
           class="mb-1"
           style="color: #eedb00; background-color: #15142a; text-align: center"
@@ -18,46 +22,52 @@
         </v-container>
       </v-col>
     </v-row>
-  </v-container>
-  <v-row
-    align="center"
-    justify="center"
-    class="d-flex mb-5"
-    style="width: 100%"
-  >
-    <v-col cols="12" md="5" class="d-flex justify-center pl-6">
-      <div style="height: 300px">
+    <v-row
+      dense
+      align="center"
+      justify="center"
+      class="d-flex mb-5"
+      style="width: 100%; height: 80%"
+    >
+      <v-col cols="12" md="5" class="d-flex justify-center pl-6">
+        <div style="height: 300px">
+          <Card
+            v-if="!isLoaded"
+            :cardDetails="leftCard"
+            :photo="resourcesPhoto"
+          />
+        </div>
+      </v-col>
+      <v-col cols="12" md="5" class="d-flex justify-center pl-6">
         <Card
           v-if="!isLoaded"
-          :cardDetails="leftCard"
+          :cardDetails="rightCard"
           :photo="resourcesPhoto"
         />
-      </div>
-    </v-col>
-    <v-col cols="12" md="5" class="d-flex justify-center pl-6">
-      <Card v-if="!isLoaded" :cardDetails="rightCard" :photo="resourcesPhoto" />
-    </v-col>
-  </v-row>
-  <v-row align="center" justify="center">
-    <v-progress-circular
-      v-if="isLoaded"
-      indeterminate
-      color="primary"
-    ></v-progress-circular>
-  </v-row>
-  <v-row>
-    <v-col class="text-center">
-      <v-btn @click="playGame">Play Game</v-btn>
-    </v-col>
-  </v-row>
-  <WinnerModal
-    :isWinnerDialogOpen="isWinnerDialogOpen"
-    :title="winnerTitle"
-    :cardDetails="winnerCard"
-    :photo-url="resourcesPhoto"
-    @onClose="onClose"
-    @onTryAgain="onTryAgain"
-  ></WinnerModal>
+      </v-col>
+    </v-row>
+    <v-row dense align="center" justify="center" style="height: 10%">
+      <template v-if="isLoaded">
+        <v-progress-circular
+          indeterminate
+          color="primary"
+        ></v-progress-circular>
+      </template>
+      <template v-else>
+        <v-col class="text-center mb-4">
+          <v-btn @click="playGame">Play Game</v-btn>
+        </v-col>
+      </template>
+    </v-row>
+    <WinnerModal
+      :isWinnerDialogOpen="isWinnerDialogOpen"
+      :title="winnerTitle"
+      :cardDetails="winnerCard"
+      :photo-url="resourcesPhoto"
+      @onClose="onClose"
+      @onTryAgain="onTryAgain"
+    ></WinnerModal>
+  </v-container>
 </template>
 
 <script lang="ts" setup>
@@ -92,9 +102,8 @@ const winnerCard = ref(null) as Ref<Starship | Character | null>;
 const winnerTitle = ref("") as Ref<string>;
 const leftPlayerScore = ref(0) as Ref<number>;
 const rightPlayerRightScore = ref(0) as Ref<number>;
-
-let isLoaded = ref(false);
-let isGameStarted = ref(false);
+const isLoaded = ref(false);
+const isGameStarted = ref(false);
 
 const resourcesPhoto = computed(() => {
   if (props.resources === Resources.Character) {
@@ -103,14 +112,6 @@ const resourcesPhoto = computed(() => {
 
   return "https://images.unsplash.com/photo-1587279484796-61a264afc18b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 });
-
-const onClose = (value: boolean) => {
-  isWinnerDialogOpen.value = value;
-};
-
-const onTryAgain = () => {
-  playGame();
-};
 
 const leftCard = computed(() => {
   if (props.resources === Resources.Character) {
@@ -127,6 +128,14 @@ const rightCard = computed(() => {
 
   return rightStarshipCard.value;
 });
+
+const onClose = (value: boolean) => {
+  isWinnerDialogOpen.value = value;
+};
+
+const onTryAgain = () => {
+  playGame();
+};
 
 const resetGame = () => {
   leftCharacterCard.value = null;

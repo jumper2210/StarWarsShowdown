@@ -3,7 +3,7 @@
     data-testid="winner-dialog"
     v-model="isOpen"
     :persistent="true"
-    maxWidth="60%"
+    :width="widthOfDialog"
   >
     <v-card>
       <v-card-title
@@ -37,23 +37,11 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, ref, Ref, watch } from "vue";
+import { PropType, ref, Ref, watch, computed } from "vue";
 import Card from "@/components/Card.vue";
 import { Starship } from "@/domain/models/Starship";
 import { Character } from "@/domain/models/Character";
-
-const emit = defineEmits(["onClose", "onTryAgain"]);
-
-const close = () => {
-  emit("onClose", false);
-};
-
-const tryAgain = () => {
-  emit("onTryAgain");
-  isOpen.value = false;
-};
-
-const isOpen = ref(false) as Ref<boolean>;
+import { useDisplay } from "vuetify";
 
 const props = defineProps({
   isWinnerDialogOpen: {
@@ -70,10 +58,27 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["onClose", "onTryAgain"]);
+const { width } = useDisplay();
+
+const widthOfDialog = computed(() => {
+  return width.value < 600 ? "100%" : "50%";
+});
+
+const isOpen = ref(false) as Ref<boolean>;
+
+const close = () => {
+  emit("onClose", false);
+};
+
+const tryAgain = () => {
+  emit("onTryAgain");
+  isOpen.value = false;
+};
+
 watch(
   () => props.isWinnerDialogOpen,
   (newVal, oldVal) => {
-    console.log("props.isWinnerDialogOpen", props.isWinnerDialogOpen);
     isOpen.value = newVal;
   }
 );

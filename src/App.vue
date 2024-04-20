@@ -2,7 +2,11 @@
   <v-app style="background-color: #15142a; overflow: auto">
     <v-main style="height: 100vh">
       <Game :resources="selectedResource"></Game>
-      <v-dialog data-testid="dialog-resources" v-model="dialog">
+      <v-dialog
+        :width="widthOfResourcesDialog"
+        data-testid="dialog-resources"
+        v-model="dialog"
+      >
         <v-card>
           <v-card-title class="headline text-center text-wrap"
             >Select Resource and may the force be with you!</v-card-title
@@ -28,15 +32,21 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, Ref } from "vue";
+import { ref, Ref, computed } from "vue";
 import { Resources } from "@/domain/models/Resources";
 import Game from "@/components/Game.vue";
+import { useDisplay } from "vuetify";
 
 const dialog = ref(true);
 const selectedResource = ref(Resources.Character) as Ref<Resources | null>;
 const resourceOptions = ref([Resources.Character, Resources.Starship]) as Ref<
   Resources[]
 >;
+const { width } = useDisplay();
+
+const widthOfResourcesDialog = computed(() => {
+  return width.value < 600 ? "100%" : "40%";
+});
 
 const onClick = () => {
   dialog.value = false;
