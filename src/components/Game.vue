@@ -18,7 +18,7 @@
           class="mb-1"
           style="color: #eedb00; background-color: #15142a; text-align: center"
         >
-          Right Player Score: {{ rightPlayerRightScore }}
+          Right Player Score: {{ rightPlayerScore }}
         </v-container>
       </v-col>
     </v-row>
@@ -33,7 +33,7 @@
         <Card
           data-testid="left-card"
           v-if="!isLoaded"
-          :cardDetails="leftCard"
+          :card-details="leftCard"
           :photo="resourcesPhoto"
         />
       </v-col>
@@ -41,7 +41,7 @@
         <Card
           data-testid="right-card"
           v-if="!isLoaded"
-          :cardDetails="rightCard"
+          :card-details="rightCard"
           :photo="resourcesPhoto"
         />
       </v-col>
@@ -61,9 +61,9 @@
     </v-row>
     <WinnerModal
       data-testid="winner-modal"
-      :isWinnerDialogOpen="isWinnerDialogOpen"
+      :is-winner-dialog-open="isWinnerDialogOpen"
       :title="winnerTitle"
-      :cardDetails="winnerCard"
+      :card-details="winnerCard"
       :photo-url="resourcesPhoto"
       @onClose="onClose"
       @onTryAgain="onTryAgain"
@@ -72,7 +72,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, inject, Ref, computed, PropType } from "vue";
+import { ref, inject, computed, defineProps, PropType, Ref } from "vue";
 import { Starship } from "@/domain/models/Starship";
 import { Character } from "@/domain/models/Character";
 import { Resources } from "@/domain/models/Resources";
@@ -81,20 +81,11 @@ import { StarshipRepository } from "@/domain/repositories/StarshipRepository";
 import { GameService } from "@/domain/services/GameService";
 import Card from "@/components/Card.vue";
 import WinnerModal from "./WinnerModal.vue";
-import { RoundResult } from "../domain/models/RoundResult";
-
-const props = defineProps({
-  resources: {
-    type: String as PropType<string | null>,
-  },
-});
 
 const leftStarshipCard = ref(null) as Ref<Starship | null>;
 const rightStarshipCard = ref(null) as Ref<Starship | null>;
 const leftCharacterCard = ref(null) as Ref<Character | null>;
 const rightCharacterCard = ref(null) as Ref<Character | null>;
-const starshipCardWinner = ref(null) as Ref<RoundResult>;
-const characterCardWinner = ref(null) as Ref<RoundResult>;
 const characterRepository = inject<CharacterRepository>("CharacterRepository");
 const starshipRepository = inject<StarshipRepository>("StarshipRepository");
 const gameService = new GameService();
@@ -102,9 +93,14 @@ const isWinnerDialogOpen = ref(false) as Ref<boolean>;
 const winnerCard = ref(null) as Ref<Starship | Character | null>;
 const winnerTitle = ref("") as Ref<string>;
 const leftPlayerScore = ref(0) as Ref<number>;
-const rightPlayerRightScore = ref(0) as Ref<number>;
+const rightPlayerScore = ref(0) as Ref<number>;
 const isLoaded = ref(false);
-const isGameStarted = ref(false);
+
+const props = defineProps({
+  resources: {
+    type: String as PropType<string | null>,
+  },
+});
 
 const resourcesPhoto = computed(() => {
   if (props.resources === Resources.Character) {
@@ -130,11 +126,12 @@ const rightCard = computed(() => {
   return rightStarshipCard.value;
 });
 
-const onClose = (value: boolean) => {
-  isWinnerDialogOpen.value = value;
+const onClose = () => {
+  isWinnerDialogOpen.value = false;
 };
 
 const onTryAgain = () => {
+  resetGame();
   playGame();
 };
 
@@ -145,78 +142,55 @@ const resetGame = () => {
   rightStarshipCard.value = null;
   isWinnerDialogOpen.value = false;
   isLoaded.value = false;
-  isLoaded.value = false;
-  isGameStarted.value = false;
 };
 
 const playGame = async () => {
-  resetGame();
-
-  isGameStarted.value = true;
+  isLoaded.value = true;
+  let leftCardValue,
+    rightCardValue,
+    leftCardGetter,
+    rightCardGetter,
+    compareAttributes;
 
   if (props.resources === Resources.Character) {
-    await characterResourcesGame();
+    leftCardGetter = () => characterRepository.getRandomCharacter();
+    rightCardGetter = leftCardGetter;
+    compareAttributes = gameService.compareCharacterAttributes;
   } else {
-    await starshipResourcesGame();
+    leftCardGetter = () => starshipRepository.getRandomStarship();
+    rightCardGetter = leftCardGetter;
+    compareAttributes = gameService.compareStarshipAttributes;
   }
 
-  isGameStarted.value = false;
-};
-
-const characterResourcesGame = async () => {
-  isLoaded.value = true;
-  while (!leftCharacterCard.value) {
-    leftCharacterCard.value = await characterRepository.getRandomCharacter();
+  while (!leftCardValue) {
+    leftCardValue = await leftCardGetter();
   }
-  isLoaded.value = false;
 
-  isLoaded.value = true;
-  while (!rightCharacterCard.value) {
-    rightCharacterCard.value = await characterRepository.getRandomCharacter();
+  while (!rightCardValue) {
+    rightCardValue = await rightCardGetter();
   }
-  isLoaded.value = false;
 
-  characterCardWinner.value = gameService.compareCharacterAttributes(
-    leftCharacterCard.value,
-    rightCharacterCard.value
-  );
-  winnerCard.value = characterCardWinner.value.cardDetails;
-  winnerTitle.value = `Winner is ${characterCardWinner.value.winner}`;
+  leftCharacterCard.value =
+    props.resources === Resources.Character ? leftCardValue : null;
+  leftStarshipCard.value =
+    props.resources === Resources.Starship ? leftCardValue : null;
+  rightCharacterCard.value =
+    props.resources === Resources.Character ? rightCardValue : null;
+  rightStarshipCard.value =
+    props.resources === Resources.Starship ? rightCardValue : null;
+
+  const cardWinner = compareAttributes(leftCardValue, rightCardValue);
+
+  winnerCard.value = cardWinner.cardDetails;
+  winnerTitle.value = `Winner is ${cardWinner.winner}`;
 
   setTimeout(() => {
     isWinnerDialogOpen.value = true;
-    characterCardWinner.value.winner === "Left Player"
+    cardWinner.winner === "Left Player"
       ? leftPlayerScore.value++
-      : rightPlayerRightScore.value++;
-  }, 1500);
-};
+      : rightPlayerScore.value++;
+  }, 2500);
 
-const starshipResourcesGame = async () => {
-  isLoaded.value = true;
-  while (!leftStarshipCard.value) {
-    leftStarshipCard.value = await starshipRepository.getRandomStarship();
-  }
   isLoaded.value = false;
-
-  isLoaded.value = true;
-  while (!rightStarshipCard.value) {
-    rightStarshipCard.value = await starshipRepository.getRandomStarship();
-  }
-  isLoaded.value = false;
-
-  starshipCardWinner.value = gameService.compareStarshipAttributes(
-    leftStarshipCard.value,
-    rightStarshipCard.value
-  );
-
-  winnerCard.value = starshipCardWinner.value.cardDetails;
-  winnerTitle.value = `Winner is ${starshipCardWinner.value.winner}`;
-
-  setTimeout(() => {
-    isWinnerDialogOpen.value = true;
-    starshipCardWinner.value.winner === "Left Player"
-      ? leftPlayerScore.value++
-      : rightPlayerRightScore.value++;
-  }, 1500);
 };
 </script>

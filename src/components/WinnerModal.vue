@@ -17,7 +17,7 @@
           <v-col class="d-flex justify-center" cols="12" sm="8" md="6">
             <Card
               data-testid="card-details"
-              :cardDetails="cardDetails"
+              :card-details="cardDetails"
               :photo="photoUrl"
             />
           </v-col>
@@ -68,7 +68,7 @@ const widthOfDialog = computed(() => {
 const isOpen = ref(false) as Ref<boolean>;
 
 const close = () => {
-  emit("onClose", false);
+  emit("onClose");
 };
 
 const tryAgain = () => {
