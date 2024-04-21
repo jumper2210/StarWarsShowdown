@@ -1,6 +1,6 @@
 <template>
   <v-app style="background-color: #15142a; overflow: auto">
-    <v-main style="height: 100vh">
+    <v-main style="height: 100svh">
       <Game :resources="selectedResource"></Game>
       <v-dialog
         :width="widthOfResourcesDialog"
