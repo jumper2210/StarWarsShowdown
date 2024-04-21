@@ -28,8 +28,6 @@ https://starwarsshodwon.web.app
 
 To run tests you need node ver: 14.19.1
 
-command: npx open cypress
-
 ```
-
+npx open cypress
 ```
