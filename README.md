@@ -1,24 +1,35 @@
 # star-wars-showdown
 
 ## Project setup
+
 ```
 npm install
 ```
 
 ### Compiles and hot-reloads for development
+
 ```
 npm run serve
 ```
 
 ### Compiles and minifies for production
+
 ```
 npm run build
 ```
 
-### Lints and fixes files
+### Demo
+
 ```
-npm run lint
+https://starwarsshodwon.web.app
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Tests
+
+To run tests you need node ver: 14.19.1
+
+command: npx open cypress
+
+```
+
+```
